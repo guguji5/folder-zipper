@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
-const absolutePath = '/Users/didi/Desktop/pub'
-// const absolutePath = '/root/ecmc8026/pub'
+// const absolutePath = '/Users/didi/Desktop/pub'
+const absolutePath = '/root/ecmc8026/pub'
 exports.getTemplate =function(){
     let paths = fs.readdirSync(absolutePath)
     // paths.forEach(item =>{
