@@ -6,7 +6,7 @@ const nStatic = require('node-static');
 var fileServer = new nStatic.Server('./public');
 
 const server = http.createServer((req, res) => {
-  console.log(req.url)
+  
   if(req.url === '/favicon.ico') return res.end()
   if(req.url === '/'){
     res.setHeader('Content-Type', 'text/html');
@@ -15,6 +15,7 @@ const server = http.createServer((req, res) => {
     return res.end(getTemplate());
   }
   if(req.url.startsWith('/download')){
+    const origin = req.headers.host.split(':')[0]
     const projects = req.url.slice(10)
     const projectArr = projects && projects.split(',')
     const nowtime = new Date();
@@ -26,7 +27,7 @@ const server = http.createServer((req, res) => {
     const timeStamp=`${month}-${date}-${hour}-${minute}-${second}`
     download(projectArr, timeStamp, function(){
       res.writeHead(302,{
-        'Location': `http://localhost:5000/pub${timeStamp}.zip`
+        'Location': `http://${origin}:5000/pub${timeStamp}.zip`
       })
       res.end('下载中……');
     })
