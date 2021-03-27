@@ -4,16 +4,14 @@ const { absoluteDir, formatDate } = require('./constant');
 
 exports.getTemplate =function(){
     let paths = fs.readdirSync(absoluteDir)
-    let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;}</style>'
+    let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;} .date{display:inline-block;width:40px} .time{display:inline-block;width:50px}</style>'
     paths.filter(item =>{
       let absolutePath = path.join(absoluteDir, item)
       return fs.existsSync(absolutePath) && fs.lstatSync(absolutePath).isDirectory()
     }).forEach(item => {
         let stats = fs.statSync(path.join(absoluteDir,item))
         const {month, date, hour, minute, second} = formatDate(new Date(stats.birthtime))
-
-        const lastUpdateTime =`${month}.${date} ${hour}:${minute}:${second}`
-        template+=`<div class="block"><input type="checkbox" name=${item}> <span class="labal">${item}</span>更新时间：${lastUpdateTime}</div>`
+        template+=`<div class="block"><input type="checkbox" name=${item}> <span class="labal">${item}</span>更新时间：<span class="date">${month}.${date}</span><span class="time">${hour}:${minute}:${second}</span></div>`
     })
 
     template +='<div class="block" style="width: 100%"><button onclick="download()">点击下载</button></div>'
