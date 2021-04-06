@@ -4,7 +4,7 @@ const { absoluteDir, formatDate } = require('./constant');
 const priorityFolder=['crds', 'mis','zstack','portal','layout','rdb','metal','bill','dstor','mon','job', 'ams', 'rds','redis','mongodb']
 exports.getTemplate =function(){
     let paths = fs.readdirSync(absoluteDir)
-    let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;} .date{display:inline-block;width:50px} .time{display:inline-block;width:50px}</style>'
+    let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;} .highlight{color:#2f81f9} .date{display:inline-block;width:50px} .time{display:inline-block;width:50px}</style>'
     paths.filter(item =>{
       let absolutePath = path.join(absoluteDir, item)
       return fs.existsSync(absolutePath) && fs.lstatSync(absolutePath).isDirectory()
@@ -12,15 +12,10 @@ exports.getTemplate =function(){
       let orderLength = priorityFolder.length
       return (priorityFolder.includes(b) ? Math.pow(2,orderLength - priorityFolder.indexOf(b)) : -1) - (priorityFolder.includes(a) ? Math.pow(2,orderLength - priorityFolder.indexOf(a)) : -1)
     })
-    .sort((a,b) => {
-      let astats = fs.statSync(path.join(absoluteDir,a))
-      let bstats = fs.statSync(path.join(absoluteDir,b))
-      return bstats.birthtime - astats.birthtime
-    })
     .forEach(item => {
         let stats = fs.statSync(path.join(absoluteDir,item))
         const {month, date, hour, minute, second} = formatDate(new Date(stats.birthtime))
-        template+=`<div class="block"><input type="checkbox" name=${item}> <span class="labal">${item}</span>更新时间：<span class="date">${month}.${date}</span><span class="time">${hour}:${minute}:${second}</span></div>`
+        template+=`<div class="block"><input type="checkbox" name=${item}> <span class="labal ${priorityFolder.includes(item) ? 'highlight' :''}">${item}</span>更新时间：<span class="date">${month}.${date}</span><span class="time">${hour}:${minute}:${second}</span></div>`
     })
 
     template +='<div class="block" style="width: 100%"><button onclick="download()">点击下载</button></div>'
