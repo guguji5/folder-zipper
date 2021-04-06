@@ -4,7 +4,7 @@ const { absoluteDir, formatDate } = require('./constant');
 const priorityFolder=['crds', 'mis','zstack','portal','layout','rdb','metal','bill','dstor','mon','job', 'ams', 'rds','redis','mongodb']
 exports.getTemplate =function(){
     let paths = fs.readdirSync(absoluteDir)
-    let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;} .date{display:inline-block;width:40px} .time{display:inline-block;width:50px}</style>'
+    let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;} .date{display:inline-block;width:50px} .time{display:inline-block;width:50px}</style>'
     paths.filter(item =>{
       let absolutePath = path.join(absoluteDir, item)
       return fs.existsSync(absolutePath) && fs.lstatSync(absolutePath).isDirectory()
