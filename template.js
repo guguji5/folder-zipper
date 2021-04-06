@@ -15,7 +15,7 @@ exports.getTemplate =function(){
     .forEach(item => {
         let stats = fs.statSync(path.join(absoluteDir,item))
         const {month, date, hour, minute, second} = formatDate(new Date(stats.birthtime))
-        template+=`<div class="block"><input type="checkbox" name=${item}> <span class="labal ${priorityFolder.includes(item) ? 'highlight' :''}">${item}</span>更新时间：<span class="date">${month}.${date}</span><span class="time">${hour}:${minute}:${second}</span></div>`
+        template+=`<div class="block"><input type="checkbox" name=${item}> <span class="labal ${priorityFolder.includes(item) ? 'highlight' :''}">${item}</span>更新时间：<span class="date ${priorityFolder.includes(item) ? 'highlight' :''}">${month}.${date}</span><span class="time ${priorityFolder.includes(item) ? 'highlight' :''}">${hour}:${minute}:${second}</span></div>`
     })
 
     template +='<div class="block" style="width: 100%"><button onclick="download()">点击下载</button></div>'
