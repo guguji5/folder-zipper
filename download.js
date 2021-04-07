@@ -53,7 +53,7 @@ exports.download=function(projectArr, timeStamp, cb){
     archive.file('./deploy.sh', { name: 'deploy.sh' });
 
     projectArr.forEach(item =>{
-        const folder = path.join(absoluteDir, item);
+        const folder = path.join(absoluteDir, item === 'dstor' ? 'dstor-dky' : item);
         archive.directory(folder, item);
     })
     

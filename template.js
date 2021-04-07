@@ -7,7 +7,7 @@ exports.getTemplate =function(){
     let template = '<style>.block{float:left; width: 33%} .labal{display:inline-block;width: 150px;margin-bottom: 20px;} .highlight{color:#2f81f9} .date{display:inline-block;width:50px} .time{display:inline-block;width:50px}</style>'
     paths.filter(item =>{
       let absolutePath = path.join(absoluteDir, item)
-      return fs.existsSync(absolutePath) && fs.lstatSync(absolutePath).isDirectory()
+      return fs.existsSync(absolutePath) && fs.lstatSync(absolutePath).isDirectory() && item != 'dstor-dky'
     }).sort((a,b) => {
       let orderLength = priorityFolder.length
       return (priorityFolder.includes(b) ? Math.pow(2,orderLength - priorityFolder.indexOf(b)) : -1) - (priorityFolder.includes(a) ? Math.pow(2,orderLength - priorityFolder.indexOf(a)) : -1)
