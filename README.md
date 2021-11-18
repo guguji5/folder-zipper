@@ -1,4 +1,6 @@
-# File System
+# Folder Zipper
+
+Serve a web page to zip the folder and download  
 
 ## References: 
 1. https://github.com/cloudhead/node-static
